@@ -3,7 +3,7 @@ package hello.itemservice.repository;
 import lombok.Data;
 
 @Data
-public class ItemSearchCond {
+public class ItemSearchCond { //검색 조건
 
     private String itemName;
     private Integer maxPrice;
