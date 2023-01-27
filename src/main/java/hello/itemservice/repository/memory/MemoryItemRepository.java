@@ -43,16 +43,16 @@ public class MemoryItemRepository implements ItemRepository {
         return store.values().stream()
                 .filter(item -> {
                     if (ObjectUtils.isEmpty(itemName)) {
-                        return true;
+                        return true; //검색값이 비어있으면 모두 return
                     }
-                    return item.getItemName().contains(itemName);
+                    return item.getItemName().contains(itemName); //itemName에 포함된 값만 return
                 }).filter(item -> {
                     if (maxPrice == null) {
-                        return true;
+                        return true; //가격 제한이 없으면 모두 return
                     }
-                    return item.getPrice() <= maxPrice;
+                    return item.getPrice() <= maxPrice; //가격 제한이하인 경우만 return
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); //필터를 모두 만족하는 값을 List로 반환!
     }
 
     public void clearStore() {
