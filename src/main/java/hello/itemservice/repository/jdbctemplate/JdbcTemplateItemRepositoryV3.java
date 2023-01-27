@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * SimpleJdbcInsert: insert(save)에서만 도움이 되는 기능
+ */
 @Slf4j
 @Repository
 public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
@@ -32,7 +35,9 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         this.template = new NamedParameterJdbcTemplate(dataSource);
         this.jdbcInsert = new SimpleJdbcInsert(dataSource)
                 .withTableName("item")
-                .usingGeneratedKeyColumns("id");
+                .usingGeneratedKeyColumns("id"); //자동 생성되는 PK
+//                .usingColumns("item_name", "price", "quantity"); //생략 가능: SimpleJdbcInsert가 자동으로 "item" Table읽고 Columns 생성함
+
     }
     @Override
     public Item save(Item item) {
@@ -44,7 +49,7 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
-        String sql = "update item " + "set item_name=:itemName, price=:price, quantity=:quantity" + "where id=: id";
+        String sql = "update item " + "set item_name=:itemName, price=:price, quantity=:quantity" + " where id=:id";
 
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("itemName", updateParam.getItemName())
@@ -76,7 +81,7 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         //동적 쿼리
 
         if (StringUtils.hasText(itemName) || maxPrice != null) {
-            sql += "where";
+            sql += " where";
         }
 
         boolean andFlag = false;
