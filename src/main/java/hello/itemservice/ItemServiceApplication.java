@@ -18,7 +18,10 @@ import javax.xml.crypto.Data;
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
 @Slf4j
-@Import(JdbcTemplateV3Config.class)
+//@Import(JdbcTemplateV3Config.class)
+//@Import(MyBatisConfig.class)
+//@Import(JpaConfig.class)
+@Import(SpringDataJpaConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web") //경로상 하위에 있는 controller만 컴포넌트 스캔을 사용, 나머지는 수동 등록
 public class ItemServiceApplication {
 
